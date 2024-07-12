@@ -29,10 +29,10 @@ func NewFactory1() *Factory1 {
 	return &Factory1{name: "Factory1"}
 }
 
-func (f *Factory1) CreateProductA() abstract_factory.ProductA {
+func (f *Factory1) CreateProductA() abstract_factory.IProductA {
 	return &ProductA1{info: fmt.Sprintf("从%s生产的ProductA", f.name)}
 }
 
-func (f *Factory1) CreateProductB() abstract_factory.ProductB {
+func (f *Factory1) CreateProductB() abstract_factory.IProductB {
 	return &ProductB1{info: fmt.Sprintf("从%s生产的ProductB", f.name)}
 }

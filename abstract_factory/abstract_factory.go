@@ -1,14 +1,14 @@
 package abstract_factory
 
-type AbstractFactory interface {
-	CreateProductA() ProductA
-	CreateProductB() ProductB
+type IFactory interface {
+	CreateProductA() IProductA
+	CreateProductB() IProductB
 }
 
-type ProductA interface {
+type IProductA interface {
 	ShowInfo()
 }
 
-type ProductB interface {
+type IProductB interface {
 	ShowInfo()
 }
