@@ -1,18 +1,23 @@
 package main
 
 import (
-	impl2 "design-patterns/abstract_factory/impl"
-	"design-patterns/builder"
-	"design-patterns/factory_method/impl"
-	"design-patterns/prototype"
-	"design-patterns/simple_factory"
-	"design-patterns/singleton/hungry"
-	"design-patterns/singleton/lazy"
+	"design-patterns/behavioral_patterns/chain_of_responsibility"
+	"design-patterns/behavioral_patterns/observer"
+	afimpl "design-patterns/creational_patterns/abstract_factory/impl"
+	"design-patterns/creational_patterns/builder"
+	amimpl "design-patterns/creational_patterns/factory_method/impl"
+	"design-patterns/creational_patterns/prototype"
+	"design-patterns/creational_patterns/simple_factory"
+	"design-patterns/creational_patterns/singleton/hungry"
+	"design-patterns/creational_patterns/singleton/lazy"
+	"design-patterns/structural_patterns/adapter"
+	"design-patterns/structural_patterns/bridge"
+	"design-patterns/structural_patterns/proxy"
 	"fmt"
 )
 
 func AbstractFactory() {
-	factory1 := impl2.NewFactory1()
+	factory1 := afimpl.NewFactory1()
 	productA := factory1.CreateProductA()
 	productB := factory1.CreateProductB()
 	productA.ShowInfo()
@@ -37,11 +42,11 @@ func Builder() {
 }
 
 func FactoryMethod() {
-	catFactory := impl.NewCatFactory()
+	catFactory := amimpl.NewCatFactory()
 	cat := catFactory.CreateAnimal()
 	cat.Eat()
 
-	dogFactory := impl.NewDogFactory()
+	dogFactory := amimpl.NewDogFactory()
 	dog := dogFactory.CreateAnimal()
 	dog.Eat()
 }
@@ -66,18 +71,89 @@ func Singleton() {
 
 	byMutex := hungry.GetInstanceByMutex()
 	byOnce := hungry.GetInstanceByOnce()
+	byCas := hungry.GetInstanceByCas()
 
 	byInit.SayHello()
 	byVar.SayHello()
+
 	byMutex.SayHello()
 	byOnce.SayHello()
+	byCas.SayHello()
+}
+
+func Adapter() {
+	httpClient := adapter.NewHttpClient()
+	client := adapter.NewHttpClientAdapter(httpClient)
+	client.Request()
+}
+
+func Bridge() {
+	smsNotification := bridge.NewSmsNotification()
+	emailNotification := bridge.NewEmailNotification()
+
+	smsNotification.Notice("sms info")
+	emailNotification.Notice("email info")
+}
+
+func ChainOfResponsibility() {
+	router := chain_of_responsibility.NewRouter()
+
+	router.Use(func(ctx *chain_of_responsibility.HttpCtx) {
+		println("1111111")
+		ctx.Next()
+		println("2222222")
+	})
+
+	router.Use(func(ctx *chain_of_responsibility.HttpCtx) {
+		println("3333333")
+		ctx.Next()
+		println("4444444")
+	})
+
+	router.Get("/get/hello", func(ctx *chain_of_responsibility.HttpCtx) {
+		ctx.Resp(200, map[string]interface{}{
+			"resp": "hello",
+		})
+	})
+
+	router.Run()
+}
+
+func Observer() {
+	o1 := observer.NewObserver("1")
+	o2 := observer.NewObserver("2")
+	o3 := observer.NewObserver("3")
+
+	subject := observer.NewSubject()
+	subject.Register(o1)
+	subject.Register(o2)
+	subject.Register(o3)
+
+	subject.Notify()
+}
+
+func Proxy() {
+	clientProxy := proxy.NewRpcClientProxy()
+	resp := clientProxy.Request()
+	println(resp)
 }
 
 func main() {
-	AbstractFactory()
+	//AbstractFactory()
 	//Builder()
 	//FactoryMethod()
 	//Prototype()
 	//SimpleFactory()
 	//Singleton()
+
+	//Adapter()
+	//Bridge()
+	//Proxy()
+
+	//ChainOfResponsibility()
+	Observer()
+}
+
+func Test() {
+
 }

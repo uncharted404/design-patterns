@@ -1,6 +1,8 @@
 package simple_factory
 
-import "design-patterns/simple_factory/impl"
+import (
+	impl2 "design-patterns/creational_patterns/simple_factory/impl"
+)
 
 const (
 	AnimalDog = iota
@@ -14,9 +16,9 @@ type IAnimal interface {
 func GetAnimal(animalName int) IAnimal {
 	switch animalName {
 	case AnimalDog:
-		return &impl.Dog{}
+		return &impl2.Dog{}
 	case AnimalCat:
-		return &impl.Cat{}
+		return &impl2.Cat{}
 	}
 	return nil
 }

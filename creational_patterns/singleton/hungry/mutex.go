@@ -1,7 +1,7 @@
 package hungry
 
 import (
-	"design-patterns/singleton"
+	"design-patterns/creational_patterns/singleton"
 	"sync"
 )
 
@@ -15,7 +15,7 @@ func GetInstanceByMutex() *singleton.Singleton {
 		mu.Lock()
 		defer mu.Unlock()
 		if instanceByMutex == nil {
-			instanceByMutex = singleton.NewSingleton()
+			instanceByMutex = singleton.NewSingleton("mutex")
 		}
 	}
 	return instanceByMutex

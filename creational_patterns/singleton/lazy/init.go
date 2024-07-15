@@ -1,11 +1,13 @@
 package lazy
 
-import "design-patterns/singleton"
+import (
+	"design-patterns/creational_patterns/singleton"
+)
 
 var instanceByInit *singleton.Singleton
 
 func init() {
-	instanceByInit = singleton.NewSingleton()
+	instanceByInit = singleton.NewSingleton("init")
 }
 
 func GetInstanceByInit() *singleton.Singleton {

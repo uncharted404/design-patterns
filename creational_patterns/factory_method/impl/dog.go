@@ -1,6 +1,8 @@
 package impl
 
-import "design-patterns/factory_method"
+import (
+	"design-patterns/creational_patterns/factory_method"
+)
 
 type Dog struct{}
 

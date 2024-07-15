@@ -1,7 +1,7 @@
 package impl
 
 import (
-	"design-patterns/abstract_factory"
+	"design-patterns/creational_patterns/abstract_factory"
 	"fmt"
 )
 
